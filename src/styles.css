@@ -1,0 +1,234 @@
+/*
+ * Tailwind v4 entry: config lives here, with no tailwind.config.js or PostCSS plugin.
+ * Keep every @import in this top block. Web fonts load via <link> in src/routes/__root.tsx.
+ */
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Design system: cinematic gold-on-ink look for the Kuruluş Osman presentation. */
+
+@theme inline {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-display: "Cormorant SC", "Cormorant Garamond", Georgia, serif;
+  --tracking-epic: 0.35em;
+  --shadow-glow: var(--glow-gold);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-ink: var(--ink);
+  --color-parchment: var(--parchment);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-deep: var(--gold-deep);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+}
+
+:root {
+  --radius: 0.25rem;
+  --ink: oklch(7% 0.008 60);
+  --parchment: oklch(90% 0.04 85);
+  --gold: oklch(80% 0.13 82);
+  --gold-bright: oklch(92% 0.11 90);
+  --gold-deep: oklch(55% 0.11 70);
+
+  --background: var(--ink);
+  --foreground: oklch(93% 0.03 85);
+  --card: oklch(11% 0.01 60);
+  --card-foreground: var(--foreground);
+  --popover: oklch(11% 0.01 60);
+  --popover-foreground: var(--foreground);
+  --primary: var(--gold);
+  --primary-foreground: var(--ink);
+  --secondary: oklch(16% 0.012 60);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(16% 0.012 60);
+  --muted-foreground: oklch(72% 0.03 80);
+  --accent: oklch(20% 0.02 70);
+  --accent-foreground: var(--gold-bright);
+  --destructive: oklch(60% 0.2 27);
+  --destructive-foreground: var(--foreground);
+  --border: oklch(80% 0.13 82 / 0.28);
+  --input: oklch(80% 0.13 82 / 0.3);
+  --ring: var(--gold);
+
+  --gradient-gold: linear-gradient(100deg, var(--gold-deep) 0%, var(--gold-bright) 35%, var(--gold) 55%, var(--gold-deep) 100%);
+  --veil-left: linear-gradient(90deg, oklch(5% 0.008 60 / 0.95) 0%, oklch(5% 0.008 60 / 0.75) 35%, oklch(5% 0.008 60 / 0.15) 70%, transparent 100%);
+  --veil-full: linear-gradient(oklch(5% 0.008 60 / 0.45) 0%, oklch(5% 0.008 60 / 0.6) 50%, oklch(5% 0.008 60 / 0.92) 100%);
+  --veil-top: linear-gradient(180deg, oklch(5% 0.008 60 / 0.85) 0%, transparent 22%);
+  --veil-bottom: linear-gradient(0deg, oklch(5% 0.008 60 / 0.95) 0%, transparent 55%);
+  --veil-vignette: radial-gradient(ellipse at center, transparent 40%, oklch(4% 0.006 60 / 0.85) 100%);
+  --glow-gold: 0 0 40px oklch(80% 0.13 82 / 0.35);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-serif);
+    height: 100%;
+    overflow: hidden;
+  }
+  ::selection {
+    background: var(--gold);
+    color: var(--ink);
+  }
+}
+
+@utility text-gold-gradient {
+  background: var(--gradient-gold);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 24px oklch(80% 0.13 82 / 0.25));
+  animation: gold-sheen 8s ease-in-out infinite;
+}
+@utility mask-fade-left {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 38%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 38%);
+}
+@utility bg-gold-line {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+@utility bg-veil-bottom {
+  background: var(--veil-bottom);
+}
+@utility bg-veil-top {
+  background: var(--veil-top);
+}
+@utility bg-veil-full {
+  background: var(--veil-full);
+}
+@utility bg-veil-left {
+  background: var(--veil-left);
+}
+@utility bg-vignette {
+  background: var(--veil-vignette);
+}
+
+@keyframes gold-sheen {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes ken-burns {
+  from { transform: scale(1.04) translate(0, 0); }
+  to { transform: scale(1.18) translate(-1.5%, -1%); }
+}
+@keyframes soft-zoom {
+  from { transform: scale(1.06); }
+  to { transform: scale(1); }
+}
+@keyframes rise-in {
+  from { opacity: 0; filter: blur(8px); transform: translateY(28px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+@keyframes line-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes ember {
+  0% { opacity: 0; transform: translate(0, 0) scale(1); }
+  10% { opacity: 1; }
+  100% { transform: translate3d(var(--drift, 30px), -110vh, 0) scale(0.4); opacity: 0; }
+}
+@keyframes pulse-ring {
+  from { box-shadow: 0 0 0 0 oklch(80% 0.13 82 / 0.5); }
+  to { box-shadow: 0 0 0 22px oklch(80% 0.13 82 / 0); }
+}
+@keyframes eq-bar {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.slide-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1), visibility 1.1s;
+}
+.slide-layer[data-active="true"] {
+  opacity: 1;
+  visibility: visible;
+}
+.slide-layer[data-active="true"] .ken-burns {
+  animation: ken-burns 16s ease-out forwards;
+}
+/* Settles to the full, uncropped frame instead of zooming in. */
+.slide-layer[data-active="true"] .soft-zoom {
+  animation: soft-zoom 6s ease-out forwards;
+}
+.slide-layer .reveal {
+  opacity: 0;
+}
+.slide-layer[data-active="true"] .reveal {
+  animation: rise-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0.3s);
+}
+.slide-layer[data-active="true"] .reveal-line {
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: line-grow 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0.3s);
+}
+.ember {
+  position: absolute;
+  bottom: -10px;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: var(--gold-bright);
+  box-shadow: 0 0 8px var(--gold);
+  animation: ember linear infinite;
+}
+.film-grain {
+  mix-blend-mode: overlay;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+}
+.pulse-ring {
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+.eq-bar {
+  transform-origin: bottom;
+  animation: eq-bar 0.9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ken-burns,
+  .soft-zoom,
+  .ember,
+  .eq-bar,
+  .text-gold-gradient {
+    animation: none !important;
+  }
+}
